@@ -1,7 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 
-const baseRouter = require('./helpers/base-router.js');
+const baseRouter = require('./data/helpers/base-router.js');
 
 const server = express();
 
@@ -32,24 +32,25 @@ server.use(alphaDirector);
 // server.use(gateKeeper);
 
 // routing
-server.use('/api/helpers', baseRouter);
+server.use('/api/users', baseRouter);
+server.use('/api/posts', baseRouter);
 
 // route handlers ARE middleware
-server.get('/', restricted, (req, res) => {
+server.get('/', (req, res) => {
   res.send(`
     <h2>Lambda Hubs API</h2>
     <p>Welcome ${req.team} to the Lambda Hubs API</p>
     `);
 });
 
-function restricted(req, res, next) {
-  const password = req.headers.password;
+// function restricted(req, res, next) {
+//   const password = req.headers.password;
 
-  if (password === 'password') {
-    next();
-  } else {
-    res.status(401).send('Wrong Password!');
-  }
-}
+//   if (password === 'password') {
+//     next();
+//   } else {
+//     res.status(401).send('Wrong Password!');
+//   }
+// }
 
 module.exports = server;
