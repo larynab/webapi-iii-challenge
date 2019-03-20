@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-      const users = await Users.find(req.query);
+      const users = await Users.get(req.query);
       res.status(200).json(users);
     } catch (error) {
       console.log(error);
@@ -16,5 +16,17 @@ router.get('/', async (req, res) => {
       });
     }
   });
+
+  router.get("/:userId", async (req, res) => {
+    try {
+        const user = await Posts.getUserPosts(req.query);
+        res.status(200).json(user);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({
+          message: 'Error retrieving the user',
+        });
+      }
+    });
 
 module.exports = router;
