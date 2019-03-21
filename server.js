@@ -8,7 +8,7 @@ const server = express();
 // global middleware
 
 function userUpperCase(req, res, next) {
-    
+
 }
 // function defender(req, res, next) {
 //   res.status(404).json("No");
@@ -37,7 +37,7 @@ server.use(express.json());
 
 // routing
 server.use('/api/users', baseRouter);
-// server.use('/api/posts', baseRouter);
+server.use('/api/posts', baseRouter);
 
 // route handlers ARE middleware
 server.get('/', (req, res) => {

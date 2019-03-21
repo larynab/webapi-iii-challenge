@@ -1,13 +1,13 @@
 const express = require('express');
 
-const Users = require('./userDb.js');
-const Posts = require('./userDb.js');
+const userdb = require('./userDb.js');
+const postdb = require('./userDb.js');
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-      const users = await Users.get(req.query);
+      const users = await userdb.get(req.query);
       res.status(200).json(users);
     } catch (error) {
       console.log(error);
@@ -17,9 +17,10 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get("/:userId", async (req, res) => {
+  router.get("/posts/:userId", async (req, res) => {
+      const {userId} = req.params;
     try {
-        const user = await Posts.getUserPosts(req.query);
+        const user = await userdb.getUserPosts(userId);
         res.status(200).json(user);
       } catch (error) {
         console.log(error);
